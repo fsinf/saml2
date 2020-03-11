@@ -1,5 +1,5 @@
 """
-WSGI config for saml2restauth project.
+WSGI config for idp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'saml2restauth.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'idp.settings')
 
 application = get_wsgi_application()
