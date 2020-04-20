@@ -6,24 +6,90 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IDP</title>
+  <style>
+    /* Bordered form */
+    form {
+      border: 3px solid #f1f1f1;
+    }
+
+    /* Full-width inputs */
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    /* Set a style for all buttons */
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Add a hover effect for buttons */
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .container {
+      width: 50%;
+      min-width: 150px;
+      margin: 5px auto;
+    }
+
+    ul.service {
+      list-style: none;
+    }
+
+    div.service {
+      display: block;
+    }
+
+    span.service {
+      display: inline-block;
+      margin: 5px 0px;
+      padding: 5px 10px;
+      border: 1px solid #090;
+      background-color: #6c6;
+      border-radius: 5px;
+    }
+
+    .userflags {
+      color: #ccc;
+    }
+  </style>
 </head>
 
 <body>
-    <p>-- @ Identity Provider --</p>
+  <div class="container">
+    <h2>FsInf SAML2 SSO</h2>
     {% if request.user.is_authenticated %}
-        <p>LOGGED IN - <a href={{ logout_url }}>LOGOUT</a></p>
-        <ul>
-        {% for k, v in user_attrs %}
-            <li>{{k}}: {{v}}</li>
-        {% endfor %}
-        </ul>
+    <p><b><a href={{ logout_url }}>LOGOUT</a></b></p>
 
-        {% for sp_id in known_sp_ids %}
-            <p><a href="{% url 'djangosaml2idp:saml_idp_init' %}?sp={{sp_id.entity_id|urlencode:""}}&RelayState=%2F">Perform IdP-initiated login to {{sp_id}}</a>></p>
-        {% endfor %}
+    <span>SAML2 Services:</span>
+    <ul class="service">
+    {% for sp_id in known_sp_ids %}
+      <li><div class="service"><span class="service"><a href="{% url 'djangosaml2idp:saml_idp_init' %}?sp={{sp_id.entity_id|urlencode:""}}&RelayState=%2F">{{sp_id}}</a></span></div></li>
+    {% endfor %}
+    </ul>
+
+    <div class="userflags">SAML2/Django User flags:</div>
+    <ul class="userflags">
+    {% for k, v in user_attrs %}
+      <li class="userflags">{{k}}: {{v}}</li>
+    {% endfor %}
+    </ul>
     {% else %}
-        <p>LOGGED OUT - <a href={{ login_url }}>LOGIN</a></p>
+    <p><b><a href={{ login_url }}>LOGIN</a></b></p>
     {% endif %}
+  </div>
 
 </body>
 

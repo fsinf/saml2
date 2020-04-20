@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangosaml2idp',
-    'django_pam',
     'idp',
 ]
 
@@ -55,7 +54,7 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     'idp.backends.PAMRestAuthBackend',
 #    'django_pam.auth.backends.PAMBackend',
-#    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 ROOT_URLCONF = 'idp.urls'
@@ -63,7 +62,8 @@ ROOT_URLCONF = 'idp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # allow overriding of error.html
+        'DIRS': [os.path.join(BASE_DIR, 'idp', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -167,7 +167,7 @@ LOGGING = {
 # The following is added for djangosaml2idp IdP configuration.
 
 import saml2  # noqa
-from saml2.saml import NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED  # noqa
+from saml2.saml import NAMEID_FORMAT_PERSISTENT, NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED  # noqa
 from saml2.sigver import get_xmlsec_binary  # noqa
 
 APPEND_SLASH = False
@@ -195,7 +195,7 @@ SAML_IDP_CONFIG = {
                     ("https://saml2.fsinf.at/idp/slo/redirect/", saml2.BINDING_HTTP_REDIRECT)
                 ],
             },
-            'name_id_format': [NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED],
+            'name_id_format': [NAMEID_FORMAT_PERSISTENT, NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED],
             'sign_response': True,
             'sign_assertion': True,
             'want_authn_requests_signed': False,
