@@ -79,18 +79,9 @@
       <li><div class="service"><span class="service"><a href="{% url 'djangosaml2idp:saml_idp_init' %}?sp={{sp_id.entity_id|urlencode:""}}&RelayState=%2F">{{sp_id}}</a></span></div></li>
     {% endfor %}
     </ul>
-
-    <div class="userflags">SAML2/Django User flags:</div>
-    <ul class="userflags">
-    {% for k, v in user_attrs %}
-      <li class="userflags">{{k}}: {{v}}</li>
-    {% endfor %}
-    </ul>
     {% else %}
     <p><b><a href={{ login_url }}>LOGIN</a></b></p>
     {% endif %}
   </div>
-
 </body>
-
 </html>

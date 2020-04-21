@@ -14,7 +14,6 @@ class IndexView(TemplateView):
         })
         if self.request.user.is_authenticated:
             context.update({
-                "user_attrs": sorted([(field.name, getattr(self.request.user, field.name)) for field in self.request.user._meta.get_fields() if field.concrete]),
                 "known_sp_ids": [sp for sp in ServiceProvider.objects.filter(active=True)],
             })
         return context
