@@ -216,3 +216,8 @@ SAML_IDP_CONFIG = {
 
 SAML_AUTHN_SIGN_ALG = saml2.xmldsig.SIG_RSA_SHA256
 SAML_AUTHN_DIGEST_ALG = saml2.xmldsig.DIGEST_SHA256
+
+try:
+    from localsettings import *
+except:
+    pass
