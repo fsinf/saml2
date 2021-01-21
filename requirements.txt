@@ -1,5 +1,5 @@
 Django==3.0.7
-pysaml2==5.0.0
+pysaml2==6.5.0
 arrow==0.15.5
 djangosaml2idp==0.7.2
 django-pam==1.6.0
