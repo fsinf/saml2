@@ -16,8 +16,17 @@ class PAMRestAuthBackend(PAMBackend):
             user = super().authenticate(*args, service='saml2', username=username_lower, password=password)
         if user is None:
             return None
+        changed = False
         if user.email is None or user.email == '':
             user.email = f"{username_lower}@fsinf.at"
+            changed = True
+        if user.first_name is None or user.first_name == '':
+            user.first_name = f"{username_lower}"
+            changed = True
+        if user.last_name is None or user.last_name == '':
+            user.last_name = "-"
+            changed = True
+        if changed:
             user.save()
         user_email = user.email
         return user
