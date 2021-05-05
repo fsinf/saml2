@@ -7,9 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IDP</title>
   <style>
+    body {
+      font-family: Verdana, sans-serif;
+    }
+
     /* Bordered form */
     form {
-      border: 3px solid #f1f1f1;
+      border: none;
     }
 
     /* Full-width inputs */
@@ -58,7 +62,15 @@
       padding: 5px 10px;
       border: 1px solid #090;
       background-color: #6c6;
-      border-radius: 5px;
+    }
+
+    a {
+      color: #00f;
+    }
+
+    a.service {
+      color: #00f;
+      font-weight: bold;
     }
 
     .userflags {
@@ -76,7 +88,7 @@
     <span>SAML2 Services:</span>
     <ul class="service">
     {% for sp_id in known_sp_ids %}
-      <li><div class="service"><span class="service"><a href="{% url 'djangosaml2idp:saml_idp_init' %}?sp={{sp_id.entity_id|urlencode:""}}&RelayState=%2F">{{sp_id}}</a></span></div></li>
+      <li><div class="service"><a class="service" href="{% url 'djangosaml2idp:saml_idp_init' %}?sp={{sp_id.entity_id|urlencode:""}}&RelayState=%2F"><span class="service">{{sp_id.pretty_name}}</span></a> <span class="description">{{sp_id.description}}</span></div></li>
     {% endfor %}
     </ul>
     {% else %}
