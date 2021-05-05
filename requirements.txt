@@ -1,5 +1,5 @@
-Django==3.1.6
-arrow==0.15.5
-django-pam==1.6.0
+Django==3.2.1
+arrow==1.1.0
+django-pam==2.0.0
 djangosaml2idp==0.7.2
 pysaml2==6.5.1

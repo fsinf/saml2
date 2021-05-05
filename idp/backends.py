@@ -1,4 +1,3 @@
-#    'django_pam.auth.backends.PAMBackend',
 from django_pam.auth.backends import PAMBackend
 
 class PAMRestAuthBackend(PAMBackend):
