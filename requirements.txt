@@ -1,4 +1,4 @@
-Django==3.2.1
+Django==3.2.4
 arrow==1.1.0
 django-pam==2.0.0
 djangosaml2idp==0.7.2
